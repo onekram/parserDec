@@ -2,8 +2,7 @@ from telebot.types import Message
 from config_data.config import load_config, Config
 from telebot import TeleBot
 
-from lexicon.lexicon_ru import *
-from keyboards.functions_kb import menu, back_kb, none
+from keyboards.functions_kb import *
 
 from parser.parser_processing import User_Parsing
 
@@ -201,6 +200,19 @@ list_func = (enter_date1,
              enter_tech,
              enter_type)
 
+list_btn = (date1_kb,
+            date2_kb,
+            status_kb,
+            typedec_kb,
+            type_objdec_kb,
+            origin_kb,
+            rfprod_kb,
+            esprod_kb,
+            eslist_kb,
+            rflist_kb,
+            tech_kb,
+            type_kb)
+
 
 @bot.message_handler(commands=['start'])
 def start_processing(message: Message):
@@ -226,7 +238,7 @@ def menu_processing(message: Message):
 
     for i, msg in enumerate(LEXICON_RU['menu']):
         if message.text == msg:
-            bot.send_message(chat_id=message.from_user.id, text=input_fils[i], reply_markup=back_kb)
+            bot.send_message(chat_id=message.from_user.id, text=input_fils[i], reply_markup=list_btn[i])
             bot.register_next_step_handler(message, list_func[i])
 
 
