@@ -184,6 +184,25 @@ def enter_type(message: Message):
                          reply_markup=menu)
 
 
+def enter_amount(message: Message):
+    if message.text in ('<< Назад', '/start'):
+        bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
+    else:
+        num = message.text
+        if not num.isdigit():
+            bot.send_message(chat_id=message.chat.id, text='Вы ввели некорректные данные', reply_markup=menu)
+        else:
+            num = int(num)
+            parser = User_Parsing(users[message.from_user.id])
+            bot.send_message(chat_id=message.chat.id, text='Парсинг начался', reply_markup=none)
+            res = parser.start_parsing(num)
+            if res is True:
+                bot.send_message(chat_id=message.from_user.id, text='Парсинг закончился!', reply_markup=menu)
+            else:
+                bot.send_message(chat_id=message.from_user.id, text=f'В ходе работы парсера произошла ошибка: {res}',
+                                 reply_markup=menu)
+
+
 # ----------------------------------
 
 
@@ -225,11 +244,8 @@ def menu_processing(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
 
     if message.text == 'Начать парсинг по фильтрам':
-        bot.send_message(chat_id=message.from_user.id, text='Парсинг начался!', reply_markup=none)
-        parser = User_Parsing(users[message.from_user.id])
-        parser.start_parsing()
-        bot.send_message(chat_id=message.from_user.id, text='Парсинг закончился!', reply_markup=none)
-
+        bot.send_message(chat_id=message.from_user.id, text='Введите количество:', reply_markup=none)
+        bot.register_next_step_handler(message, enter_amount)
     elif message.text == 'Показать введенные фильтры':
         bot.send_message(chat_id=message.from_user.id,
                          text='\n'.join([f'<b>{k}</b>: {v}' for k, v in zip(LEXICON_RU['menu'],
