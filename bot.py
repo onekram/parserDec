@@ -196,8 +196,8 @@ def enter_amount(message: Message):
             parser = User_Parsing(users[message.from_user.id])
             bot.send_message(chat_id=message.chat.id, text='Парсинг начался', reply_markup=none)
             res = parser.start_parsing(num)
-            if res is True:
-                bot.send_message(chat_id=message.from_user.id, text='Парсинг закончился!', reply_markup=menu)
+            if isinstance(res, list):
+                bot.send_message(chat_id=message.from_user.id, text='\n'.join(res), reply_markup=menu)
             else:
                 bot.send_message(chat_id=message.from_user.id, text=f'В ходе работы парсера произошла ошибка: {res}',
                                  reply_markup=menu)
@@ -251,7 +251,20 @@ def menu_processing(message: Message):
                          text='\n'.join([f'<b>{k}</b>: {v}' for k, v in zip(LEXICON_RU['menu'],
                                                                             users[message.from_user.id].values())]),
                          reply_markup=back_kb)
-
+    elif message.text == 'Очистить фильтры':
+        users[message.from_user.id] = {'date1': [None, None],
+                                       'date2': [None, None],
+                                       'status': None,
+                                       'type_dec': None,
+                                       'type_obj_dec': None,
+                                       'origin': None,
+                                       'rf_prod': None,
+                                       'es_prod': None,
+                                       'es_list': None,
+                                       'rf_list': None,
+                                       'tech': None,
+                                       'type': None}
+        bot.send_message(chat_id=message.chat.id, text='Готово', reply_markup=menu)
     for i, msg in enumerate(LEXICON_RU['menu']):
         if message.text == msg:
             bot.send_message(chat_id=message.from_user.id, text=input_fils[i], reply_markup=list_btn[i])

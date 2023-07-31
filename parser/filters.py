@@ -302,7 +302,8 @@ class Filters:
         btn.click()
         ActionChains(self.driver).pause(1).perform()
 
-    def get_data(self):
+    def get_data(self, amount: int):
+        amount = min(amount, 100)
         cnt_dropdown = self.driver.find_element(By.CLASS_NAME, 'paginations-wrapper').find_element(By.TAG_NAME, 'a')
         cnt_dropdown.click()
         ActionChains(self.driver).pause(1).perform()
@@ -314,7 +315,7 @@ class Filters:
         ActionChains(self.driver).pause(1).perform()
 
         all_datas = list()
-        for i in range(100):
+        for i in range(amount):
             page_table_data = self.driver.find_element(By.CLASS_NAME, 'wtSpreader').find_element(By.TAG_NAME,
                                                                                                  'tbody').find_elements(
                 By.TAG_NAME, 'td')
@@ -325,9 +326,13 @@ class Filters:
                         all_datas.append(link)
                 except:
                     continue
+            if len(all_datas) > amount:
+                break
+            print(i, len(all_datas))
 
-            self.driver.execute_script(f"document.getElementsByClassName('wtHolder')[0].scrollTo(0, {200 * i});")
+            self.driver.execute_script(f"document.getElementsByClassName('wtHolder')[0].scrollTo(0, {500 * i});")
             ActionChains(self.driver).pause(1).perform()
+        return all_datas[:amount]
 
 
 if __name__ == '__main__':
@@ -335,15 +340,7 @@ if __name__ == '__main__':
         driver.get('https://pub.fsa.gov.ru/rds/declaration')
         wb_filter = Filters(driver)
         ActionChains(driver).pause(3).perform()
-        wb_filter.calendar('12.12.1212')
         wb_filter.status(['Действует'])
-        wb_filter.RF_product_groups(['Дельные вещи'])
-        wb_filter.EAS_product_groups(
-            ['Для приготовления и хранения пищи и механизации кухонных работ, а также прочее кухонное оборудование'])
-        wb_filter.EAS_product_single_list(['Мебель для дошкольных учреждений', 'Шины (кроме восстановленных)'])
-        wb_filter.RF_product_sigle_list(['Котлы паровые', 'Радиационные системы'])
-        wb_filter.Technical_regulation(['Решение Совета Евразийской экономической комиссии от 18.04.2018 № 44'])
-        wb_filter.Application_type(['Поставщик'])
         wb_filter.send_filters()
-        wb_filter.get_data()
+        wb_filter.get_data(50)
         ActionChains(driver).pause(3).perform()

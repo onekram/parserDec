@@ -3,13 +3,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from parser.filters import Filters
 
 
-
 class User_Parsing:
     def __init__(self, fil: dict[str, str | None]):
         self.fil = fil
         self.url = 'https://pub.fsa.gov.ru/rds/declaration'
         self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
-
 
     def start_parsing(self, num: int, headless: bool = False):
         options = webdriver.ChromeOptions()
@@ -32,10 +30,12 @@ class User_Parsing:
                 wb_filters.RF_product_sigle_list([self.fil['rf_list']])
                 wb_filters.Technical_regulation([self.fil['tech']])
                 wb_filters.Application_type([self.fil['type']])
-                ActionChains(driver).pause(1).perform()
                 wb_filters.send_filters()
-                ActionChains(driver).pause(20).perform()
+                ActionChains(driver).pause(1).perform()
+                data = wb_filters.get_data(num)
+                ActionChains(driver).pause(1).perform()
             except Exception as ex:
-                return type(ex)
+                return ex
             else:
-                return True
+                print('data')
+                return data
