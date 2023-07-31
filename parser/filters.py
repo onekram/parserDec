@@ -24,11 +24,13 @@ class Filters:
             elem.click()
             ActionChains(self.driver).pause(1).perform()
             inp = self.driver.find_element(By.TAG_NAME, 'fgis-select-dropdown').find_elements(By.TAG_NAME, 'input')[0]
+            inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
             inp.send_keys(name)
             ActionChains(self.driver).pause(1).perform()
             inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
-                                                                                                 'virtual-list')
+                                                                                                         'virtual-list')
             inp_select.click()
+            ActionChains(self.driver).pause(1).perform()
 
     def type_dec(self, attrs: list[str]):
         for name in attrs:
@@ -38,11 +40,13 @@ class Filters:
             elem.click()
             ActionChains(self.driver).pause(1).perform()
             inp = self.driver.find_element(By.TAG_NAME, 'fgis-select-dropdown').find_elements(By.TAG_NAME, 'input')[0]
+            inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
             inp.send_keys(name)
             ActionChains(self.driver).pause(1).perform()
             inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
-                                                                                                 'virtual-list')
+                                                                                                         'virtual-list')
             inp_select.click()
+            ActionChains(self.driver).pause(1).perform()
 
     def type_obj_dec(self, attrs: list[str]):
         for name in attrs:
@@ -52,11 +56,13 @@ class Filters:
             elem.click()
             ActionChains(self.driver).pause(1).perform()
             inp = self.driver.find_element(By.TAG_NAME, 'fgis-select-dropdown').find_elements(By.TAG_NAME, 'input')[0]
+            inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
             inp.send_keys(name)
             ActionChains(self.driver).pause(1).perform()
             inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
                                                                                                          'virtual-list')
             inp_select.click()
+            ActionChains(self.driver).pause(1).perform()
 
     def origin(self, attrs: list[str]):
         for name in attrs:
@@ -66,11 +72,13 @@ class Filters:
             elem.click()
             ActionChains(self.driver).pause(1).perform()
             inp = self.driver.find_element(By.TAG_NAME, 'fgis-select-dropdown').find_elements(By.TAG_NAME, 'input')[0]
+            inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
             inp.send_keys(name)
             ActionChains(self.driver).pause(1).perform()
             inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
                                                                                                          'virtual-list')
             inp_select.click()
+            ActionChains(self.driver).pause(1).perform()
 
     def RF_product_groups(self, attrs: list[str]):
         if any(attrs):
@@ -79,24 +87,38 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
-                                                                                                     'fgis-selectbox__filter-input')
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
-
                 try:
-                    inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
-                    inp_expand.click()
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
+                                                                                                         'fgis-selectbox__filter-input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
+
+                    # try:
+                    #     inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
+                    #     inp_expand.click()
+                    #     ActionChains(self.driver).pause(1).perform()
+                    # except:
+                    #     pass
+
+                    inp_tree = self.driver.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+                    while True:
+                        inp_choice = inp_tree.find_element(By.TAG_NAME, 'li')
+                        if inp_choice.text.strip() == name:
+                            inp_choice.click()
+                            break
+                        else:
+                            inp_choice.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand').click()
+                            ActionChains(self.driver).pause(1).perform()
+                            inp_tree = inp_tree.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+                        # inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
+                        #     By.CLASS_NAME, 'fgis-selectbox__options__name')
+                        # inp_choice.click()
                     ActionChains(self.driver).pause(1).perform()
                 except:
-                    pass
-
-                inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
-                    By.CLASS_NAME, 'fgis-selectbox__options__name')
-                inp_choice.click()
-                ActionChains(self.driver).pause(1).perform()
+                    continue
                 # inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
                 #                                                                                              'virtual-list')
                 # inp_select.click()
@@ -108,25 +130,40 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
-                                                                                                     'fgis-selectbox__filter-input')
-                inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
-
                 try:
-                    inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
-                    inp_expand.click()
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
+                                                                                                         'fgis-selectbox__filter-input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
+
+                    inp_tree = self.driver.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+                    while True:
+                        inp_choice = inp_tree.find_element(By.TAG_NAME, 'li')
+                        if inp_choice.text.strip() == name:
+                            inp_choice.click()
+                            break
+                        else:
+                            inp_choice.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand').click()
+                            ActionChains(self.driver).pause(1).perform()
+                            inp_tree = inp_tree.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+
                     ActionChains(self.driver).pause(1).perform()
                 except:
-                    pass
+                    continue
+                # try:
+                #     inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
+                #     inp_expand.click()
+                #     ActionChains(self.driver).pause(1).perform()
+                # except:
+                #     pass
 
-                inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
-                    By.CLASS_NAME, 'fgis-selectbox__options__name')
-                inp_choice.click()
-                ActionChains(self.driver).pause(1).perform()
+                # inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
+                #     By.CLASS_NAME, 'fgis-selectbox__options__name')
+                # inp_choice.click()
+                # ActionChains(self.driver).pause(1).perform()
 
     def EAS_product_single_list(self, attrs: list[str]):
         if any(attrs):
@@ -135,25 +172,40 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
-                                                                                                     'fgis-selectbox__filter-input')
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
-
                 try:
-                    inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
-                    inp_expand.click()
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
+                                                                                                         'fgis-selectbox__filter-input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
+
+                    # try:
+                    #     inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
+                    #     inp_expand.click()
+                    #     ActionChains(self.driver).pause(1).perform()
+                    # except:
+                    #     pass
+
+                    inp_tree = self.driver.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+                    while True:
+                        inp_choice = inp_tree.find_element(By.TAG_NAME, 'li')
+                        if inp_choice.text.strip() == name:
+                            inp_choice.click()
+                            break
+                        else:
+                            inp_choice.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand').click()
+                            ActionChains(self.driver).pause(1).perform()
+                            inp_tree = inp_tree.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+
+                    # while:
+                    #     inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
+                    #         By.CLASS_NAME, 'fgis-selectbox__options__name')
+                    #     inp_choice.click()
                     ActionChains(self.driver).pause(1).perform()
                 except:
-                    pass
-
-                # while:
-                #     inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
-                #         By.CLASS_NAME, 'fgis-selectbox__options__name')
-                #     inp_choice.click()
-                ActionChains(self.driver).pause(1).perform()
+                    continue
 
     def RF_product_sigle_list(self, attrs: list[str]):
         if any(attrs):
@@ -162,24 +214,39 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
-                                                                                                     'fgis-selectbox__filter-input')
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
-
                 try:
-                    inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
-                    inp_expand.click()
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.CLASS_NAME,
+                                                                                                         'fgis-selectbox__filter-input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
+
+                    inp_tree = self.driver.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+                    while True:
+                        inp_choice = inp_tree.find_element(By.TAG_NAME, 'li')
+                        if inp_choice.text.strip() == name:
+                            inp_choice.click()
+                            break
+                        else:
+                            inp_choice.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand').click()
+                            ActionChains(self.driver).pause(1).perform()
+                            inp_tree = inp_tree.find_element(By.TAG_NAME, 'fgis-select-tree-option')
+
+                    # try:
+                    #     inp_expand = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-expand')
+                    #     inp_expand.click()
+                    #     ActionChains(self.driver).pause(1).perform()
+                    # except:
+                    #     pass
+
+                    # inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
+                    #     By.CLASS_NAME, 'fgis-selectbox__options__name')
+                    # inp_choice.click()
                     ActionChains(self.driver).pause(1).perform()
                 except:
-                    pass
-
-                inp_choice = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options-leaf').find_element(
-                    By.CLASS_NAME, 'fgis-selectbox__options__name')
-                inp_choice.click()
-                ActionChains(self.driver).pause(1).perform()
+                    continue
 
     def Technical_regulation(self, attrs: list[str]):
         if any(attrs):
@@ -188,16 +255,22 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.TAG_NAME,
-                                                                                                                'input')
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
+                try:
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.TAG_NAME,
+                                                                                                         'input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
 
-                inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
-                                                                                                             'virtual-list')
-                inp_select.click()
+                    inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(
+                        By.CLASS_NAME,
+                        'virtual-list')
+                    inp_select.click()
+                    ActionChains(self.driver).pause(1).perform()
+                except:
+                    continue
 
     def Application_type(self, attrs: list[str]):
         if any(attrs):
@@ -206,21 +279,55 @@ class Filters:
             ActionChains(self.driver).pause(1).perform()
 
             for name in attrs:
-                if name is None:
-                    continue
-                inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.TAG_NAME,
-                                                                                                     'input')
-                inp.send_keys(name)
-                ActionChains(self.driver).pause(1).perform()
+                try:
+                    if name is None:
+                        continue
+                    inp = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__filter').find_element(By.TAG_NAME,
+                                                                                                         'input')
+                    inp.send_keys(Keys.CONTROL + 'A' + Keys.BACK_SPACE)
+                    inp.send_keys(name)
+                    ActionChains(self.driver).pause(1).perform()
 
-                inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(By.CLASS_NAME,
-                                                                                                             'virtual-list')
-                inp_select.click()
+                    inp_select = self.driver.find_element(By.CLASS_NAME, 'fgis-selectbox__options').find_element(
+                        By.CLASS_NAME,
+                        'virtual-list')
+                    inp_select.click()
+                    ActionChains(self.driver).pause(1).perform()
+                except:
+                    continue
 
     def send_filters(self):
         btn = self.driver.find_element(By.XPATH,
                                        '//div[@class="advanced-search__footer d-flex"]/button[@class="btn btn_primary"]')
         btn.click()
+        ActionChains(self.driver).pause(1).perform()
+
+    def get_data(self):
+        cnt_dropdown = self.driver.find_element(By.CLASS_NAME, 'paginations-wrapper').find_element(By.TAG_NAME, 'a')
+        cnt_dropdown.click()
+        ActionChains(self.driver).pause(1).perform()
+
+        cnt_dropdown_choice = self.driver.find_element(By.CLASS_NAME, 'paginations-wrapper').find_element(By.TAG_NAME,
+                                                                                                          'li').find_element(
+            By.TAG_NAME, 'a')
+        cnt_dropdown_choice.click()
+        ActionChains(self.driver).pause(1).perform()
+
+        all_datas = list()
+        for i in range(100):
+            page_table_data = self.driver.find_element(By.CLASS_NAME, 'wtSpreader').find_element(By.TAG_NAME,
+                                                                                                 'tbody').find_elements(
+                By.TAG_NAME, 'td')
+            for data in page_table_data:
+                try:
+                    link = data.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    if link not in all_datas:
+                        all_datas.append(link)
+                except:
+                    continue
+
+            self.driver.execute_script(f"document.getElementsByClassName('wtHolder')[0].scrollTo(0, {200 * i});")
+            ActionChains(self.driver).pause(1).perform()
 
 
 if __name__ == '__main__':
@@ -230,4 +337,13 @@ if __name__ == '__main__':
         ActionChains(driver).pause(3).perform()
         wb_filter.calendar('12.12.1212')
         wb_filter.status(['Действует'])
+        wb_filter.RF_product_groups(['Дельные вещи'])
+        wb_filter.EAS_product_groups(
+            ['Для приготовления и хранения пищи и механизации кухонных работ, а также прочее кухонное оборудование'])
+        wb_filter.EAS_product_single_list(['Мебель для дошкольных учреждений', 'Шины (кроме восстановленных)'])
+        wb_filter.RF_product_sigle_list(['Котлы паровые', 'Радиационные системы'])
+        wb_filter.Technical_regulation(['Решение Совета Евразийской экономической комиссии от 18.04.2018 № 44'])
+        wb_filter.Application_type(['Поставщик'])
+        wb_filter.send_filters()
+        wb_filter.get_data()
         ActionChains(driver).pause(3).perform()
