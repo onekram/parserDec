@@ -2,6 +2,7 @@ import json
 import csv
 import requests
 from copy import copy
+from telebot import TeleBot
 
 import time
 import urllib3
@@ -12,7 +13,8 @@ urllib3.disable_warnings()
 
 class FilterParser:
 
-    def __init__(self, fiter: dict = None, amount: int = 10):
+    def __init__(self, bot: TeleBot, fiter: dict = None, amount: int = 10):
+        self.bot = bot
         self.data = []
         self.json_data = {
             'size': min(1000, amount),
@@ -134,8 +136,7 @@ class FilterParser:
         response = requests.post(url, headers=my_headers, json=data, verify=False)
         return response.headers['Authorization']
 
-    @property
-    def download_data(self):
+    def download_data(self, chid, mid):
         session = requests.Session()
         response = session.post(
             'https://pub.fsa.gov.ru/api/v1/rds/common/declarations/get',
@@ -144,7 +145,7 @@ class FilterParser:
             verify=False
         )
         for i, item in enumerate(response.json()['items'], 1):
-            print(i)
+            self.bot.edit_message_text(chat_id=chid, text=f'Процесс парсинга: {i} операций выполнено!', message_id=mid)
             self.row['ID'] = item.get('id', '')
             self.row['Тип декларации'] = item.get('declType', '')
             self.row['Технические регламенты'] = item.get('technicalReglaments', '')
@@ -161,16 +162,23 @@ class FilterParser:
             self.row['Общее наименование продукции'] = item.get('productFullName', '')
             self.row['Происхождение продукции'] = item.get('productOrig', '')
             self.row['Наименование (обозначение) продукции'] = item.get('productIdentificationName', '')
+            self.row['ИНН(заявитель)'] = item.get('creatorInn', '')
+            self.row['ОГРНИП(заявитель)'] = item.get('creatorOgrn', '')
 
             sess = BSparser(item.get('id', ''))
-            item_info = sess.get_dt(self.get_headers())
+            item_info = sess.get_dt()
+            if not item_info:
+                for k, val in self.row.items():
+                    if isinstance(val, str):
+                        string = val.replace('\n', '').replace('\r\n', '')
+                        self.row[k] = ('%r' % string)[1:-1]
+                self.data.append(self.row.copy())
+                continue
 
-            self.row['Заявитель'] = item_info['applicant']['shortName']
-
-            self.row['ИНН(заявитель)'] = item_info['applicant']['inn']
-
-            self.row['ОГРНИП(заявитель)'] = item_info['applicant']['ogrn']
-
+            try:
+                self.row['Заявитель'] = item_info['applicant']['shortName']
+            except:
+                pass
             try:
                 self.row['Адрес места нахождения(заявитель)'] = item_info['applicant']['addresses'][0][
                     'fullAddress']
@@ -199,38 +207,46 @@ class FilterParser:
                 pass
 
             try:
-                self.row['Адрес электронной почты(иготовитель)'] = [i['value'] for i in item_info['manufacturer']['contacts'] if i['value'].count('@') == 1]
-                self.row['Номер телефона(иготовитель)'] = [i['value'] for i in item_info['manufacturer']['contacts'] if i['value'].count('@') == 0]
+                self.row['Адрес электронной почты(иготовитель)'] = [i['value'] for i in
+                                                                    item_info['manufacturer']['contacts'] if
+                                                                    i['value'].count('@') == 1]
+                self.row['Номер телефона(иготовитель)'] = [i['value'] for i in item_info['manufacturer']['contacts'] if
+                                                           i['value'].count('@') == 0]
             except:
                 pass
             try:
                 self.row[
                     'Продукция, ввезена для проведения исследований и испытаний в качестве проб (образцов) для целей подтверждения соответствия?'] = \
-                ('нет', 'да')[bool(item_info['testingLabs'][0]['docConfirmCustom'][0]['idDocConfirmCustomType'])]
+                    ('нет', 'да')[bool(item_info['testingLabs'][0]['docConfirmCustom'][0]['idDocConfirmCustomType'])]
             except:
                 pass
             try:
                 self.row['Регистрационный номер таможенной декларации'] = \
-                item_info['testingLabs'][0]['docConfirmCustom'][0]['customInfo'][0]['customDeclNumber']
+                    item_info['testingLabs'][0]['docConfirmCustom'][0]['customInfo'][0]['customDeclNumber']
             except:
                 pass
             try:
                 self.row['Наименование документа'] = item_info['product']['identifications'][0]['documents'][0]['name']
             except:
                 pass
+
+            try:
+                self.row['Общие условия хранения продукции'] = item_info['product']['storageCondition']
+            except:
+                pass
             for k, val in self.row.items():
                 if isinstance(val, str):
                     string = val.replace('\n', '').replace('\r\n', '')
-                    self.row[k] = string
+                    self.row[k] = ('%r' % string)[1:-1]
             self.data.append(self.row.copy())
 
         return self.data
-
-
-if __name__ == '__main__':
-    fil = FilterParser(amount=10)
-    data = fil.download_data
-    with open('data.csv', 'w', encoding='utf-8-sig', newline='') as file_out:
-        writer = csv.DictWriter(file_out, fieldnames=fil.fields, delimiter=';')
-        writer.writeheader()
-        writer.writerows(data)
+#
+#
+# if __name__ == '__main__':
+#     # fil = FilterParser(amount=10)
+#     # data = fil.download_data
+#     # with open('data.csv', 'w', encoding='utf-8-sig', newline='') as file_out:
+#     #     writer = csv.DictWriter(file_out, fieldnames=fil.fields, delimiter=';')
+#     #     writer.writeheader()
+#     #     writer.writerows(data)

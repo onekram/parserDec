@@ -1,28 +1,24 @@
 {
-    "idDeclaration": 17933740,
-    "idTechnicalReglaments": [
-        11,
-        24
-    ],
-    "idDeclScheme": 10,
+    "idDeclaration": 17945659,
+    "idTechnicalReglaments": [],
+    "idDeclScheme": 44,
     "idObjectDeclType": 3,
-    "idGroups": [
-        1785,
-        1784
+    "idGroups": [],
+    "idDeclType": 17,
+    "idProductSingleLists": [
+        417
     ],
-    "idDeclType": 2,
-    "idProductSingleLists": [],
     "awaitForApprove": false,
     "editApp": false,
     "unpublishedChanges": false,
     "idStatus": 6,
     "assignRegNumber": false,
-    "number": "ЕАЭС N RU Д-HK.РА05.В.95422/23",
+    "number": "РОСС RU Д-DE.РА01.В.29106/23",
     "submissionDate": null,
-    "declRegDate": "2023-07-28",
-    "declEndDate": "2028-07-27",
+    "declRegDate": "2023-08-01",
+    "declEndDate": "2028-07-31",
     "noSanction": true,
-    "lastUpdate": "2023-07-28T16:39:09.481",
+    "lastUpdate": "2023-08-01T20:30:58.107",
     "idSigner": null,
     "idSignerEmployee": null,
     "firstName": null,
@@ -30,92 +26,67 @@
     "patronymic": null,
     "annexes": [
         {
-            "idAnnex": 2056126,
+            "idAnnex": 2059520,
             "idType": 2,
             "ord": "1",
             "pageCount": null
         }
     ],
     "applicant": {
-        "idLegalSubject": 30663264,
+        "idLegalSubject": 30699272,
         "idEgrul": 0,
         "idApplicantType": 1,
-        "idLegalSubjectType": 1,
-        "fullName": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ЮНИКС ГРУПП\"",
-        "shortName": "ООО \"ЮНИКС ГРУПП\"",
-        "idPerson": 52801064,
-        "surname": "Ивлев",
-        "firstName": "Юрий",
-        "patronymic": "Константинович",
-        "headPosition": "Генеральный директор",
+        "idLegalSubjectType": 2,
+        "fullName": "Болобосов Дмитрий Александрович",
+        "shortName": null,
+        "idPerson": 52846418,
+        "surname": "Болобосов",
+        "firstName": "Дмитрий",
+        "patronymic": "Александрович",
+        "headPosition": null,
         "applicantHead": true,
-        "idResponsiblePerson": 52801065,
-        "responsibleSurname": "Ивлев",
-        "responsibleFirstName": "Юрий",
-        "responsiblePatronymic": "Константинович",
-        "responsiblePosition": "Генеральный директор",
+        "idResponsiblePerson": null,
+        "responsibleSurname": null,
+        "responsibleFirstName": null,
+        "responsiblePatronymic": null,
+        "responsiblePosition": null,
         "responsibleDocName": null,
         "responsibleDocNumber": null,
         "responsibleDocDate": null,
-        "responsibleContacts": [],
-        "ogrn": "1217700463529",
-        "ogrnAssignDate": "2021-09-30",
-        "inn": "7713484999",
-        "kpp": "772601001",
-        "idLegalForm": 9,
+        "responsibleContacts": null,
+        "ogrn": "323670000003762",
+        "ogrnAssignDate": "2023-06-28",
+        "inn": "673210225430",
+        "kpp": null,
+        "idLegalForm": null,
         "idKopf": null,
         "nameLegalForm": null,
-        "regDate": "2021-09-30",
-        "regOrganName": "Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве",
+        "regDate": "2023-06-28",
+        "regOrganName": "Управление Федеральной налоговой службы по Смоленской области",
         "addlRegInfo": null,
         "isEecRegister": true,
         "contacts": [
             {
-                "idContact": 37538365,
+                "idContact": 37586583,
                 "idContactType": 4,
-                "value": "y.ivlev@gmail.com"
+                "value": "dima.bolobosov@bk.ru"
             },
             {
-                "idContact": 37538364,
+                "idContact": 37586582,
                 "idContactType": 1,
-                "value": "+79686218181"
+                "value": "+79605851158"
             }
         ],
-        "addresses": [
-            {
-                "idAddress": 84552715,
-                "idAddrType": 1,
-                "idCodeOksm": "643",
-                "oksmShort": true,
-                "idSubject": null,
-                "idDistrict": null,
-                "idCity": null,
-                "idLocality": null,
-                "idStreet": null,
-                "idHouse": null,
-                "flat": null,
-                "postCode": "117105",
-                "fullAddress": "117105, Россия, г.Москва, Муниципальный Округ Донской вн. тер. г., наб Новоданиловская, Д. 4а, Помещ. 11/1/6",
-                "gln": null,
-                "foreignDistrict": null,
-                "foreignCity": null,
-                "foreignLocality": null,
-                "foreignStreet": null,
-                "foreignHouse": null,
-                "uniqueAddress": null,
-                "otherGln": null,
-                "glonass": null
-            }
-        ],
+        "addresses": [],
         "transnational": []
     },
     "applicantFilials": [],
     "manufIsApplicant": false,
     "manufacturer": {
-        "idLegalSubject": 30663265,
+        "idLegalSubject": 30699273,
         "idEgrul": 0,
         "idLegalSubjectType": 3,
-        "fullName": "SUNRISE KLM TRADING COMPANY LIMITED",
+        "fullName": "Procter and Gamble DS.",
         "shortName": null,
         "idPerson": null,
         "surname": null,
@@ -146,9 +117,9 @@
         "contacts": [],
         "addresses": [
             {
-                "idAddress": 84552716,
+                "idAddress": 84638462,
                 "idAddrType": 1,
-                "idCodeOksm": "344",
+                "idCodeOksm": "276",
                 "oksmShort": true,
                 "idSubject": null,
                 "idDistrict": null,
@@ -158,24 +129,24 @@
                 "idHouse": null,
                 "flat": null,
                 "postCode": null,
-                "fullAddress": "Гонконг, FLAT/RM A 20/F,KIU FU COMMERCIAL BLDG,300 LOCK HART ROAD,WAN CHAI,HONG KONG, 22.278835°, 114.177471°",
+                "fullAddress": "Германия, Germany, Frankfuter Str. 145, 61476 Kronberg",
                 "gln": null,
-                "foreignDistrict": "FLAT/RM A 20/F,KIU FU COMMERCIAL BLDG,300 LOCK HART ROAD,WAN CHAI,HONG KONG",
+                "foreignDistrict": "Germany, Frankfuter Str. 145, 61476 Kronberg",
                 "foreignCity": null,
                 "foreignLocality": null,
                 "foreignStreet": null,
                 "foreignHouse": null,
                 "uniqueAddress": null,
                 "otherGln": null,
-                "glonass": "22.278835, 114.177471"
+                "glonass": null
             }
         ],
         "transnational": []
     },
     "manufacturerFilials": [
         {
-            "idFilial": 17593177,
-            "fullName": "SUIFENHE ZHENGCHUANG ECONOMIC AND TRADE CO.LTD",
+            "idFilial": 17623133,
+            "fullName": "Филиал: C/O THE GRAAN HOUSE",
             "shortName": null,
             "idLegalForm": null,
             "idKopf": null,
@@ -186,7 +157,45 @@
             "contacts": [],
             "addresses": [
                 {
-                    "idAddress": 84552720,
+                    "idAddress": 84638467,
+                    "idAddrType": 3,
+                    "idCodeOksm": "372",
+                    "oksmShort": true,
+                    "idSubject": null,
+                    "idDistrict": null,
+                    "idCity": null,
+                    "idLocality": null,
+                    "idStreet": null,
+                    "idHouse": null,
+                    "flat": null,
+                    "postCode": null,
+                    "fullAddress": "Ирландия, UNIT E1 + E14 CALMOUNT PARK, BALLYMOUNT DUBLIN 12, DUBLIN 12, DUBLIN, D12 X854, D12 X854 Ireland",
+                    "gln": null,
+                    "foreignDistrict": "UNIT E1 + E14 CALMOUNT PARK, BALLYMOUNT DUBLIN 12, DUBLIN 12, DUBLIN, D12 X854, D12 X854 Ireland",
+                    "foreignCity": null,
+                    "foreignLocality": null,
+                    "foreignStreet": null,
+                    "foreignHouse": null,
+                    "uniqueAddress": null,
+                    "otherGln": null,
+                    "glonass": null
+                }
+            ]
+        },
+        {
+            "idFilial": 17623132,
+            "fullName": "Филиал: Procter & Gamble Manufacturing (Tianjin) Co., Ltd.",
+            "shortName": null,
+            "idLegalForm": null,
+            "idKopf": null,
+            "nameLegalForm": null,
+            "egrulSelected": false,
+            "kpp": null,
+            "annex": true,
+            "contacts": [],
+            "addresses": [
+                {
+                    "idAddress": 84638466,
                     "idAddrType": 3,
                     "idCodeOksm": "156",
                     "oksmShort": true,
@@ -198,22 +207,22 @@
                     "idHouse": null,
                     "flat": null,
                     "postCode": null,
-                    "fullAddress": "Китай, No.101 SHANCHENG ROAD SUIFENHE HEILONGJIANG CHINA, 44.396773°, 131.165799°",
+                    "fullAddress": "Китай, No. 12, Xing Hua Qizhi Road, Xiqing Economic Development Zone, Tianjin, P. R. China",
                     "gln": null,
-                    "foreignDistrict": "No.101 SHANCHENG ROAD SUIFENHE HEILONGJIANG CHINA",
+                    "foreignDistrict": "No. 12, Xing Hua Qizhi Road, Xiqing Economic Development Zone, Tianjin, P. R. China",
                     "foreignCity": null,
                     "foreignLocality": null,
                     "foreignStreet": null,
                     "foreignHouse": null,
                     "uniqueAddress": null,
                     "otherGln": null,
-                    "glonass": "44.396773, 131.165799"
+                    "glonass": null
                 }
             ]
         },
         {
-            "idFilial": 17593176,
-            "fullName": "SHANGHAI FILIKA INTERNATIONAL TRADING COMPANY LIMITED CO. LTD",
+            "idFilial": 17623131,
+            "fullName": "Филиал: Foshan City Shunde District Poly-Products Electrical Ltd",
             "shortName": null,
             "idLegalForm": null,
             "idKopf": null,
@@ -224,7 +233,7 @@
             "contacts": [],
             "addresses": [
                 {
-                    "idAddress": 84552719,
+                    "idAddress": 84638465,
                     "idAddrType": 3,
                     "idCodeOksm": "156",
                     "oksmShort": true,
@@ -236,22 +245,22 @@
                     "idHouse": null,
                     "flat": null,
                     "postCode": null,
-                    "fullAddress": "Китай, ROOM 2008, ZHONGTANGGANGSHI 2, TIESHAN ROAD 1075, BAOSHAN DISTRICT,SHANGHAI CITY, 31.380487°, 121.459341°",
+                    "fullAddress": "Китай, № 0.1 Shi Long Road, Xintang Village, 528308 Foshan City, Guangdong Province",
                     "gln": null,
-                    "foreignDistrict": "ROOM 2008, ZHONGTANGGANGSHI 2, TIESHAN ROAD 1075, BAOSHAN DISTRICT,SHANGHAI CITY",
+                    "foreignDistrict": "№ 0.1 Shi Long Road, Xintang Village, 528308 Foshan City, Guangdong Province",
                     "foreignCity": null,
                     "foreignLocality": null,
                     "foreignStreet": null,
                     "foreignHouse": null,
                     "uniqueAddress": null,
                     "otherGln": null,
-                    "glonass": "31.380487, 121.459341"
+                    "glonass": null
                 }
             ]
         },
         {
-            "idFilial": 17593175,
-            "fullName": "JIANGSU ARMOUR NEW MATERIAL CO LTD",
+            "idFilial": 17623130,
+            "fullName": "Филиал:Polska Sp. z o.o.",
             "shortName": null,
             "idLegalForm": null,
             "idKopf": null,
@@ -262,9 +271,9 @@
             "contacts": [],
             "addresses": [
                 {
-                    "idAddress": 84552718,
+                    "idAddress": 84638464,
                     "idAddrType": 3,
-                    "idCodeOksm": "344",
+                    "idCodeOksm": "616",
                     "oksmShort": true,
                     "idSubject": null,
                     "idDistrict": null,
@@ -274,21 +283,21 @@
                     "idHouse": null,
                     "flat": null,
                     "postCode": null,
-                    "fullAddress": "Гонконг, RUDONG COUNTY NANTONG CITY JIANGSU PROVINCE P. R. CHINA, 32.323029°, 121.179203°",
+                    "fullAddress": "Польша, ul. Zabraniecka 20, 03-872 Warszawa",
                     "gln": null,
-                    "foreignDistrict": "RUDONG COUNTY NANTONG CITY JIANGSU PROVINCE P. R. CHINA",
+                    "foreignDistrict": "ul. Zabraniecka 20, 03-872 Warszawa",
                     "foreignCity": null,
                     "foreignLocality": null,
                     "foreignStreet": null,
                     "foreignHouse": null,
                     "uniqueAddress": null,
                     "otherGln": null,
-                    "glonass": "32.323029, 121.179203"
+                    "glonass": null
                 }
             ]
         },
         {
-            "idFilial": 17593174,
+            "idFilial": 17623129,
             "fullName": "Адрес места осуществления деятельности по изготовлению продукции:",
             "shortName": null,
             "idLegalForm": null,
@@ -300,9 +309,9 @@
             "contacts": [],
             "addresses": [
                 {
-                    "idAddress": 84552717,
+                    "idAddress": 84638463,
                     "idAddrType": 3,
-                    "idCodeOksm": "344",
+                    "idCodeOksm": "276",
                     "oksmShort": true,
                     "idSubject": null,
                     "idDistrict": null,
@@ -312,16 +321,16 @@
                     "idHouse": null,
                     "flat": null,
                     "postCode": null,
-                    "fullAddress": "Гонконг, FLAT/RM A 20/F,KIU FU COMMERCIAL BLDG,300 LOCK HART ROAD,WAN CHAI,HONG KONG, 22.278835°, 114.177471°",
+                    "fullAddress": "Германия, Germany, Frankfuter Str. 145, 61476 Kronberg",
                     "gln": null,
-                    "foreignDistrict": "FLAT/RM A 20/F,KIU FU COMMERCIAL BLDG,300 LOCK HART ROAD,WAN CHAI,HONG KONG",
+                    "foreignDistrict": "Germany, Frankfuter Str. 145, 61476 Kronberg",
                     "foreignCity": null,
                     "foreignLocality": null,
                     "foreignStreet": null,
                     "foreignHouse": null,
                     "uniqueAddress": null,
                     "otherGln": null,
-                    "glonass": "22.278835, 114.177471"
+                    "glonass": null
                 }
             ]
         }
@@ -329,57 +338,71 @@
     "certificationAuthority": null,
     "accreditationBody": null,
     "product": {
-        "idProduct": 14490202,
-        "idProductOrigin": "344",
-        "fullName": "Тестер прочности электронный (для испытания текстильных материалов, бумаги или картона) 220V\r\nмарка SUNRISE KLM TRADING, SUNRISE, JIANGSU ARMOUR NEW MATERIAL, JIANGSU,  SHANGHAI FILIKA INTERNATIONAL TRADING, FILIKA,  SUIFENHE ZHENGCHUANGECONOMIC AND TRADE, SUIFENHE, DONGRUN SAFETY\r\n",
+        "idProduct": 14505840,
+        "idProductOrigin": "276",
+        "fullName": "Капсулы для посудомоечной машины: Fairy All in One, Fairy Jar All in One, Fairy Platinum All in One, Fairy Platinum Plus All in OneКондиционер для белья: Fairy In Wash Scent BoosterГель для стирки белья: Fairy Non Bio Washing Gel, Fairy Non Bio Washing Capsules PlatinumКапсулы для стирки: Fairy Non Bio PodsСпрей для мытья посуды: FAIRY EXPERT KITCHEN, Fairy Power sprayМоющее средство для бытовой техники: Fairy Power DegreaserСредство для мытья посуды: Fairy Max Power Original, Fairy Active FoamСредство для чистки посудомоечных машин: Fairy Power Clean DishWasher Machine Cleaner\r\n",
         "marking": null,
         "usageScope": null,
-        "storageCondition": "Условия хранения и сроки годности продукции указаны в прилагаемой к продукции товаросопроводительной документации и/или на упаковке каждой единицы продукции.",
+        "storageCondition": "На основании СГР RU.77.01.34.015.Е.001158.05.23.\r\nСро"к хранения (службы, годности) указан в прилагаемой к продукции товаросопроводительной и/или эксплуатационной документации.",
         "usageCondition": null,
         "batchSize": null,
         "batchId": null,
         "identification": null,
         "identifications": [
             {
-                "idIdentification": 16373400,
+                "idIdentification": 16401875,
                 "annex": false,
-                "name": "Тестер прочности электронный (для испытания текстильных материалов, бумаги или картона) 220V марка SUNRISE KLM TRADING, SUNRISE, JIANGSU ARMOUR NEW MATERIAL, JIANGSU,  SHANGHAI FILIKA INTERNATIONAL TRADING, FILIKA,  SUIFENHE ZHENGCHUANGECONOMIC AND TRADE, SUIFENHE, DONGRUN SAFETY",
+                "name": "Капсулы для посудомоечной машины: Fairy All in One, Fairy Jar All in One, Fairy Platinum All in One, Fairy Platinum Plus All in OneКондиционер для белья: Fairy In Wash Scent BoosterГель для стирки белья: Fairy Non Bio Washing Gel, Fairy Non Bio Washing Capsules PlatinumКапсулы для стирки: Fairy Non Bio PodsСпрей для мытья посуды: FAIRY EXPERT KITCHEN, Fairy Power sprayМоющее средство для бытовой техники: Fairy Power DegreaserСредство для мытья посуды: Fairy Max Power Original, Fairy Active FoamСредство для чистки посудомоечных машин: Fairy Power Clean DishWasher Machine Cleaner",
                 "type": null,
                 "tradeMark": null,
                 "model": null,
                 "article": null,
                 "sort": null,
-                "idOkpds": [],
+                "idOkpds": [
+                    7054
+                ],
                 "idTnveds": [
-                    76674
+                    64988
                 ],
                 "gtin": [
                     ""
                 ],
                 "lifeTime": null,
                 "storageTime": null,
-                "description": "Декларация соответствия распространяется на продукцию, изготовленную с даты изготовления отобранных образцов (проб) продукции, прошедших исследования (испытания) и измерения, указанную в акте(ах) отбора",
+                "description": null,
                 "amount": null,
                 "idOkei": 133,
                 "factoryNumber": null,
                 "productionDate": null,
                 "expiryDate": null,
                 "documents": [],
-                "standards": []
+                "standards": [
+                    {
+                        "idStandard": 9260028,
+                        "idTechnicalRegulation": null,
+                        "annex": false,
+                        "idDictStandard": null,
+                        "designation": "ГОСТ 32479-2013",
+                        "name": "\"Средства для стирки. Общие технические условия\"",
+                        "section": null,
+                        "addlInfo": null,
+                        "idStatus": null
+                    }
+                ]
             }
         ]
     },
     "experts": [],
     "statusChanges": [
         {
-            "idChangeStatus": 24793833,
+            "idChangeStatus": 24855730,
             "idStatus": 20,
-            "beginDate": "2023-07-28T14:41:20.368",
-            "endDate": "2023-07-28T16:39:07.203",
+            "beginDate": "2023-08-01T16:30:55.469",
+            "endDate": "2023-08-01T20:30:56.758",
             "comment": null,
             "idBasis": null,
             "publicated": true,
-            "publishDate": "2023-07-28T16:39:09.693",
+            "publishDate": "2023-08-01T20:30:58.124",
             "lkType": null,
             "docName": null,
             "docNumber": null,
@@ -392,14 +415,14 @@
             "idOngoingEvent": null
         },
         {
-            "idChangeStatus": 24796158,
+            "idChangeStatus": 24857770,
             "idStatus": 6,
-            "beginDate": "2023-07-28T16:39:07.203",
+            "beginDate": "2023-08-01T20:30:56.758",
             "endDate": null,
             "comment": null,
             "idBasis": null,
             "publicated": true,
-            "publishDate": "2023-07-28T16:39:09.693",
+            "publishDate": "2023-08-01T20:30:58.124",
             "lkType": null,
             "docName": null,
             "docNumber": null,
@@ -414,30 +437,30 @@
     ],
     "testingLabs": [
         {
-            "idTestingLab": 19232212,
+            "idTestingLab": 19249866,
             "annex": false,
             "idRal": null,
             "regNumber": null,
-            "fullName": "Испытательная лаборатория Общества с ограниченной ответственностью \"ФОРТУНА\"\r\n, аттестат аккредитации РОСС RU.32623.ИЛ06 от 20.12.2022",
+            "fullName": "Испытательная лаборатория «Качество Продукции», аттестат аккредитации РОСС RU.31881.04ТЕСО.ИЛ024",
             "beginDate": null,
             "endDate": null,
             "basis": null,
             "idAccredPlace": "643",
             "isAccredEec": true,
             "address": {
-                "idAddress": 84552721,
+                "idAddress": 84638468,
                 "idAddrType": 3,
                 "idCodeOksm": "643",
                 "oksmShort": true,
-                "idSubject": "0c5b2444-70a0-4932-980c-b4dc0d3f02b5",
+                "idSubject": null,
                 "idDistrict": null,
                 "idCity": null,
                 "idLocality": null,
                 "idStreet": null,
                 "idHouse": null,
                 "flat": null,
-                "postCode": "109456",
-                "fullAddress": "109456, Россия, город Москва, Внутригородская территория города федерального значения МУНИЦИПАЛЬНЫЙ ОКРУГ РЯЗАНСКИЙ, улица ПАПЕРНИКА, дом 15, ПОМЕЩ. 1/1 ОФ 40В",
+                "postCode": "190005",
+                "fullAddress": "190005, РОССИЯ, Г. САНКТ-ПЕТЕРБУРГ, ВН.ТЕР.Г. МУНИЦИПАЛЬНЫЙ ОКРУГ ИЗМАЙЛОВСКОЕ, 6-Я КРАСНОАРМЕЙСКАЯ УЛ., Д. 5-7, ЛИТЕРА А, ЧАСТЬ ПОМЕЩ. 3-Н, КОМ. 28-29, ОФ. 201А",
                 "gln": null,
                 "foreignDistrict": null,
                 "foreignCity": null,
@@ -450,11 +473,11 @@
             },
             "protocols": [
                 {
-                    "idProtocol": 10326672,
+                    "idProtocol": 10349882,
                     "idProtocolRpi": null,
-                    "number": "FT-0323-1062",
-                    "date": "2023-03-16",
-                    "idFile": "328983fb-3332-4c94-9332-a2242e820c5f",
+                    "number": "SIR-022/01869",
+                    "date": "2023-08-01",
+                    "idFile": "619fccda-3d59-4424-8d51-8846bdc6a06e",
                     "standards": [],
                     "isProtocolInvalid": false
                 }
@@ -462,11 +485,25 @@
             "importedForResearchTesting": true,
             "docConfirmCustom": [
                 {
-                    "idDocConfirmCustom": 2126284,
-                    "idDocConfirmCustomType": 3,
-                    "customInfo": [],
+                    "idDocConfirmCustom": 2144217,
+                    "idDocConfirmCustomType": 1,
+                    "customInfo": [
+                        {
+                            "idCustomInfo": 1003967,
+                            "customDeclNumber": "107020700906001050.",
+                            "amount": null,
+                            "idMeasure": null,
+                            "otherMeasure": null,
+                            "contractNumber": null,
+                            "contractDate": null,
+                            "idAccredPlace": "643",
+                            "isAccredEec": true,
+                            "accreditedPersonName": null,
+                            "attestatRegNumber": null
+                        }
+                    ],
                     "otherDocs": [],
-                    "reasonNonRegistrCustomsDeclaration": "."
+                    "reasonNonRegistrCustomsDeclaration": null
                 }
             ],
             "ogrn": null,

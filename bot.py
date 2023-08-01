@@ -175,7 +175,7 @@ def enter_rflist(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
 
-        users[message.from_user.id]['rf_list'] = message.text
+        # users[message.from_user.id]['rf_list'] = message.text
 
         bot.send_message(chat_id=message.chat.id,
                          text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
@@ -230,7 +230,8 @@ def enter_amount(message: Message):
                 global on_parsing
                 on_parsing = True
                 num = int(num)
-                bot.send_message(chat_id=message.chat.id, text='Парсинг начался...', reply_markup=none)
+                msg = bot.send_message(chat_id=message.chat.id, text='Парсинг начался...')
+
                 obj = users[message.from_user.id]
                 filter = {'date1': obj['date1'],
                              'date2': obj['date1'],
@@ -244,19 +245,19 @@ def enter_amount(message: Message):
                              'rf_list': [],
                              'tech': [var['tech_regl'][i] for i in obj['tech']],
                              'type': [var['application_type'][i] for i in obj['type']]}
-                parser = FilterParser(fiter=filter, amount=num)
-                data = parser.download_data
+                parser = FilterParser(bot=bot, fiter=filter, amount=num)
+
+                data = parser.download_data(chid=message.chat.id, mid=msg.message_id)
                 with open('data.csv', 'w', encoding='utf-8-sig', newline='') as file_out:
                     writer = csv.DictWriter(file_out, fieldnames=parser.fields, delimiter=';')
                     writer.writeheader()
                     writer.writerows(data)
             except Exception as ex:
-                raise ex
                 bot.send_message(chat_id=message.from_user.id, text=f'В ходе работы парсера произошла ошибка: {ex}',
                                  reply_markup=menu)
             else:
                 with open('data.csv', 'r', encoding='utf-8-sig', newline='') as file:
-                    bot.send_document(chat_id=message.chat.id, document=file)
+                    bot.send_document(chat_id=message.chat.id, document=file, reply_markup=menu)
 
 
             finally:
