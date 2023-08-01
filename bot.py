@@ -1,27 +1,29 @@
+import csv
 from telebot.types import Message
 from config_data.config import load_config, Config
 from telebot import TeleBot
 
 from keyboards.functions_kb import *
 
-from parser.parser_processing import User_Parsing
+from parser.requests_parser import FilterParser
 
 from collections import defaultdict
+from lexicon.alphabet import var
 
 config: Config = load_config()
 bot: TeleBot = TeleBot(config.tgbot.token, parse_mode='html')
 users = defaultdict(lambda: {'date1': [None, None],
                              'date2': [None, None],
-                             'status': None,
-                             'type_dec': None,
-                             'type_obj_dec': None,
-                             'origin': None,
-                             'rf_prod': None,
-                             'es_prod': None,
-                             'es_list': None,
-                             'rf_list': None,
-                             'tech': None,
-                             'type': None})
+                             'status': [],
+                             'type_dec': [],
+                             'type_obj_dec': [],
+                             'origin': [],
+                             'rf_prod': [],
+                             'es_prod': [],
+                             'es_list': [],
+                             'rf_list': [],
+                             'tech': [],
+                             'type': []})
 
 
 # ----------------------------------
@@ -31,7 +33,7 @@ def enter_date1(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
         try:
-            dates = message.text.split('-')
+            dates = message.text.split(',')
             assert len(dates) == 2
         except:
             bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
@@ -50,14 +52,13 @@ def enter_date2(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
         try:
-            dates = message.text.split('-')
+            dates = message.text.split(',')
             assert len(dates) == 2
         except:
             bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
                                                                 'Возвращаюсь в главное меню...',
                              reply_markup=menu)
         else:
-            print(dates)
             users[message.from_user.id]['date2'] = dates
 
             bot.send_message(chat_id=message.chat.id,
@@ -69,47 +70,65 @@ def enter_status(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
-        users[message.from_user.id]['status'] = message.text
+        if message.text in var['status']:
+            users[message.from_user.id]['status'].append(message.text)
 
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 
 def enter_typedec(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['decl_type']:
+            users[message.from_user.id]['type_dec'].append(message.text)
 
-        users[message.from_user.id]['type_dec'] = message.text
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
 
 
 def enter_type_objdec(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['decl_obj_type']:
+            users[message.from_user.id]['type_obj_dec'].append(message.text)
 
-        users[message.from_user.id]['type_obj_dec'] = message.text
-
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 
 def enter_origin(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['origin_product']:
+            users[message.from_user.id]['origin'].append(message.text)
 
-        users[message.from_user.id]['origin'] = message.text
-
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 
 def enter_rfprod(message: Message):
@@ -117,7 +136,7 @@ def enter_rfprod(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
 
-        users[message.from_user.id]['rf_prod'] = message.text
+        # users[message.from_user.id]['rf_prod'].append(message.text)
 
         bot.send_message(chat_id=message.chat.id,
                          text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
@@ -129,7 +148,7 @@ def enter_esprod(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
 
-        users[message.from_user.id]['es_prod'] = message.text
+        # users[message.from_user.id]['es_prod'].append(message.text)
 
         bot.send_message(chat_id=message.chat.id,
                          text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
@@ -140,13 +159,16 @@ def enter_eslist(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['eas_single_products']:
+            users[message.from_user.id]['es_list'].append(message.text)
 
-        users[message.from_user.id]['es_list'] = message.text
-
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
-
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 def enter_rflist(message: Message):
     if message.text in ('<< Назад', '/start'):
@@ -165,23 +187,35 @@ def enter_tech(message: Message):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
 
-        users[message.from_user.id]['tech'] = message.text
+        if message.text in var['tech_regl']:
+            users[message.from_user.id]['tech'].append(message.text)
 
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
-
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 def enter_type(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['application_type']:
+            users[message.from_user.id]['type'].append(message.text)
 
-        users[message.from_user.id]['type'] = message.text
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+
+
+on_parsing = False
 
 
 def enter_amount(message: Message):
@@ -192,15 +226,41 @@ def enter_amount(message: Message):
         if not num.isdigit():
             bot.send_message(chat_id=message.chat.id, text='Вы ввели некорректные данные', reply_markup=menu)
         else:
-            num = int(num)
-            parser = User_Parsing(users[message.from_user.id])
-            bot.send_message(chat_id=message.chat.id, text='Парсинг начался', reply_markup=none)
-            res = parser.start_parsing(num)
-            if isinstance(res, list):
-                bot.send_message(chat_id=message.from_user.id, text='\n'.join(res), reply_markup=menu)
-            else:
-                bot.send_message(chat_id=message.from_user.id, text=f'В ходе работы парсера произошла ошибка: {res}',
+            try:
+                global on_parsing
+                on_parsing = True
+                num = int(num)
+                bot.send_message(chat_id=message.chat.id, text='Парсинг начался...', reply_markup=none)
+                obj = users[message.from_user.id]
+                filter = {'date1': obj['date1'],
+                             'date2': obj['date1'],
+                             'status': [var['status'][i] for i in obj['status']],
+                             'type_dec': [var['decl_type'][i] for i in obj['type_dec']],
+                             'type_obj_dec': [var['decl_obj_type'][i] for i in obj['type_obj_dec']],
+                             'origin': [var['origin_product'][i] for i in obj['origin']],
+                             'rf_prod': [],
+                             'es_prod': [],
+                             'es_list': [var['eas_single_products'][i] for i in obj['es_list']],
+                             'rf_list': [],
+                             'tech': [var['tech_regl'][i] for i in obj['tech']],
+                             'type': [var['application_type'][i] for i in obj['type']]}
+                parser = FilterParser(fiter=filter, amount=num)
+                data = parser.download_data
+                with open('data.csv', 'w', encoding='utf-8-sig', newline='') as file_out:
+                    writer = csv.DictWriter(file_out, fieldnames=parser.fields, delimiter=';')
+                    writer.writeheader()
+                    writer.writerows(data)
+            except Exception as ex:
+                raise ex
+                bot.send_message(chat_id=message.from_user.id, text=f'В ходе работы парсера произошла ошибка: {ex}',
                                  reply_markup=menu)
+            else:
+                with open('data.csv', 'r', encoding='utf-8-sig', newline='') as file:
+                    bot.send_document(chat_id=message.chat.id, document=file)
+
+
+            finally:
+                on_parsing = False
 
 
 # ----------------------------------
@@ -240,6 +300,8 @@ def start_processing(message: Message):
 
 @bot.message_handler(content_types=['text'])
 def menu_processing(message: Message):
+    if on_parsing:
+        bot.send_message(chat_id=message.chat.id, text='Подождите идет парсинг.....', reply_markup=none)
     if message.text == '<< Назад':
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
 
@@ -254,16 +316,16 @@ def menu_processing(message: Message):
     elif message.text == 'Очистить фильтры':
         users[message.from_user.id] = {'date1': [None, None],
                                        'date2': [None, None],
-                                       'status': None,
-                                       'type_dec': None,
-                                       'type_obj_dec': None,
-                                       'origin': None,
-                                       'rf_prod': None,
-                                       'es_prod': None,
-                                       'es_list': None,
-                                       'rf_list': None,
-                                       'tech': None,
-                                       'type': None}
+                                       'status': [],
+                                       'type_dec': [],
+                                       'type_obj_dec': [],
+                                       'origin': [],
+                                       'rf_prod': [],
+                                       'es_prod': [],
+                                       'es_list': [],
+                                       'rf_list': [],
+                                       'tech': [],
+                                       'type': []}
         bot.send_message(chat_id=message.chat.id, text='Готово', reply_markup=menu)
     for i, msg in enumerate(LEXICON_RU['menu']):
         if message.text == msg:
