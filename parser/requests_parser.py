@@ -4,6 +4,8 @@ import requests
 from copy import copy
 from telebot import TeleBot
 
+from lexicon.alphabet import var, status
+
 import time
 import urllib3
 from parser.BS_parser import BSparser
@@ -74,8 +76,9 @@ class FilterParser:
                     'Дата регистрации декларации': '',
                     'Дата окончания действия декларации о соответствии': '',
                     'Заявитель': '',  # applicant
+                    'Полное наименование юридического лица': '',
                     'ИНН(заявитель)': '',
-                    'ОГРНИП(заявитель)': '',
+                    'ОГРН(-ИП)(заявитель)': '',
                     'Адрес места осуществления деятельности': '',
                     'Адрес места нахождения(заявитель)': '',
                     'Номер телефона(заявитель)': '',
@@ -96,7 +99,8 @@ class FilterParser:
                     'Код ТН ВЭД ЕАЭС': '',
                     'Наименование (обозначение) продукции': '',
                     'Наименование документа': '',
-                    'Испытания продукции': ''
+                    'Испытания продукции': '',
+                    'Наименование испытательной лаборатории' : ''
                     }
         self.fields = self.row.copy().keys()
 
@@ -146,13 +150,12 @@ class FilterParser:
         )
         for i, item in enumerate(response.json()['items'], 1):
             self.bot.edit_message_text(chat_id=chid, text=f'Процесс парсинга: {i} операций выполнено!', message_id=mid)
-            self.row['ID'] = item.get('id', '')
+            self.row['ID'] = f"https://pub.fsa.gov.ru/rds/declaration/view/{item.get('id', '')}"
             self.row['Тип декларации'] = item.get('declType', '')
             self.row['Технические регламенты'] = item.get('technicalReglaments', '')
-            self.row['Группа продукции ЕАЭС'] = item.get('technicalReglaments', '')
-            self.row['Схема декларирования'] = item.get('group', '')
+            self.row['Группа продукции ЕАЭС'] = item.get('group', '')
             self.row['Тип объекта декларирования'] = item.get('declObjectType', '')
-            self.row['Статус декларации'] = item.get('idStatus', '')
+            self.row['Статус декларации'] = status[item.get('idStatus', '')]
             self.row['Регистрационный номер декларации о соответствии'] = item.get('number', '')
             self.row['Дата регистрации декларации'] = item.get('declDate', '')
             self.row['Дата окончания действия декларации о соответствии'] = item.get('declEndDate', '')
@@ -162,21 +165,35 @@ class FilterParser:
             self.row['Общее наименование продукции'] = item.get('productFullName', '')
             self.row['Происхождение продукции'] = item.get('productOrig', '')
             self.row['Наименование (обозначение) продукции'] = item.get('productIdentificationName', '')
-            self.row['ИНН(заявитель)'] = item.get('creatorInn', '')
-            self.row['ОГРНИП(заявитель)'] = item.get('creatorOgrn', '')
+
 
             sess = BSparser(item.get('id', ''))
             item_info = sess.get_dt()
-            if not item_info:
-                for k, val in self.row.items():
-                    if isinstance(val, str):
-                        string = val.replace('\n', '').replace('\r\n', '')
-                        self.row[k] = ('%r' % string)[1:-1]
-                self.data.append(self.row.copy())
-                continue
 
             try:
-                self.row['Заявитель'] = item_info['applicant']['shortName']
+                self.row['ИНН(заявитель)'] = item_info['applicant']['inn']
+            except:
+                pass
+            try:
+                self.row['ОГРН(-ИП)(заявитель)'] = item_info['applicant']['ogrn']
+            except:
+                pass
+            try:
+                self.row['Код ТН ВЭД ЕАЭС'] = item_info['product']['identifications'][0]['idTnveds'][0]
+            except:
+                pass
+
+            try:
+                self.row['Заявитель'] = item_info['applicant']['shortName'] or item_info['applicant']['fullName']
+            except:
+                pass
+            try:
+                self.row['Полное наименование юридического лица'] = item_info['applicant']['fullName']
+            except:
+                pass
+
+            try:
+                self.row['Схема декларирования'] = item_info['idDeclScheme']
             except:
                 pass
             try:
@@ -217,7 +234,7 @@ class FilterParser:
             try:
                 self.row[
                     'Продукция, ввезена для проведения исследований и испытаний в качестве проб (образцов) для целей подтверждения соответствия?'] = \
-                    ('нет', 'да')[bool(item_info['testingLabs'][0]['docConfirmCustom'][0]['idDocConfirmCustomType'])]
+                    ('нет', 'да')[bool(item_info['testingLabs'][0]['importedForResearchTesting'])]
             except:
                 pass
             try:
@@ -234,9 +251,13 @@ class FilterParser:
                 self.row['Общие условия хранения продукции'] = item_info['product']['storageCondition']
             except:
                 pass
+            try:
+                self.row['Наименование испытательной лаборатории'] = item_info['testingLabs'][0]['fullName']
+            except:
+                pass
             for k, val in self.row.items():
                 if isinstance(val, str):
-                    string = val.replace('\n', '').replace('\r\n', '')
+                    string = val.replace('\n', '').replace('\r\n', '').replace(';', '')
                     self.row[k] = ('%r' % string)[1:-1]
             self.data.append(self.row.copy())
 

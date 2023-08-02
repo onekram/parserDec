@@ -88,8 +88,8 @@ class BSparser:
 
 
         except Exception as e:
-            time.sleep(10)
-            return False
+            time.sleep(20)
+            return self.get_dt()
         else:
             return response
 
@@ -97,7 +97,8 @@ class BSparser:
 
 
 if __name__ == '__main__':
-    fil = BSparser(17945659)
+    fil = BSparser(17942106)
+    print(fil.get_dt())
     with open(f'datacommon.json', 'w', encoding='utf-8') as out:
         json.dump(fil.get_dt(), out, ensure_ascii=False, indent=4)
 
