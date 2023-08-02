@@ -1,4 +1,4 @@
-LEXICON_RU: dict[str, str] = {
+LEXICON_RU: dict = {
     '/start': 'Привет, я бот-парсер',
     'menu': ['Дата регистрации',
              'Дата окончания',
