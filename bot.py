@@ -135,24 +135,32 @@ def enter_rfprod(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['rf_group']:
+            users[message.from_user.id]['rf_prod'].append(message.text)
 
-        # users[message.from_user.id]['rf_prod'].append(message.text)
-
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 
 def enter_esprod(message: Message):
     if message.text in ('<< Назад', '/start'):
         bot.send_message(chat_id=message.chat.id, text='== Главное меню ==', reply_markup=menu)
     else:
+        if message.text in var['es_group']:
+            users[message.from_user.id]['es_prod'].append(message.text)
 
-        # users[message.from_user.id]['es_prod'].append(message.text)
-
-        bot.send_message(chat_id=message.chat.id,
-                         text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
-                         reply_markup=menu)
+            bot.send_message(chat_id=message.chat.id,
+                             text=f'Вы ввели: {message.text}\n\n...Возвращаюсь в главное меню...',
+                             reply_markup=menu)
+        else:
+            bot.send_message(chat_id=message.from_user.id, text='Вы ввели некорректные данные\n'
+                                                                'Возвращаюсь в главное меню...',
+                             reply_markup=menu)
 
 
 def enter_eslist(message: Message):
@@ -239,10 +247,10 @@ def enter_amount(message: Message):
                              'type_dec': [var['decl_type'][i] for i in obj['type_dec']],
                              'type_obj_dec': [var['decl_obj_type'][i] for i in obj['type_obj_dec']],
                              'origin': [var['origin_product'][i] for i in obj['origin']],
-                             'rf_prod': [],
-                             'es_prod': [],
+                             'rf_prod': [var['rf_group'][i] for i in obj['rf_prod']],
+                             'es_prod': [var['es_group'][i] for i in obj['es_prod']],
                              'es_list': [var['eas_single_products'][i] for i in obj['es_list']],
-                             'rf_list': [],
+                             'rf_list': [var['rf_single_prod'][i] for i in obj['rf_list']],
                              'tech': [var['tech_regl'][i] for i in obj['tech']],
                              'type': [var['application_type'][i] for i in obj['type']]}
                 parser = FilterParser(bot=bot, fiter=filter, amount=num)

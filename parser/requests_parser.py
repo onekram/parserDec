@@ -100,7 +100,7 @@ class FilterParser:
                     'Наименование (обозначение) продукции': '',
                     'Наименование документа': '',
                     'Испытания продукции': '',
-                    'Наименование испытательной лаборатории' : ''
+                    'Наименование испытательной лаборатории': ''
                     }
         self.fields = self.row.copy().keys()
 
@@ -166,9 +166,9 @@ class FilterParser:
             self.row['Происхождение продукции'] = item.get('productOrig', '')
             self.row['Наименование (обозначение) продукции'] = item.get('productIdentificationName', '')
 
-
             sess = BSparser(item.get('id', ''))
-            item_info = sess.get_dt()
+            item_info, addids = sess.get_dt()
+            scheme, tnved = addids
 
             try:
                 self.row['ИНН(заявитель)'] = item_info['applicant']['inn']
@@ -179,7 +179,7 @@ class FilterParser:
             except:
                 pass
             try:
-                self.row['Код ТН ВЭД ЕАЭС'] = item_info['product']['identifications'][0]['idTnveds'][0]
+                self.row['Код ТН ВЭД ЕАЭС'] = tnved
             except:
                 pass
 
@@ -193,7 +193,7 @@ class FilterParser:
                 pass
 
             try:
-                self.row['Схема декларирования'] = item_info['idDeclScheme']
+                self.row['Схема декларирования'] = scheme
             except:
                 pass
             try:
@@ -226,9 +226,9 @@ class FilterParser:
             try:
                 self.row['Адрес электронной почты(иготовитель)'] = [i['value'] for i in
                                                                     item_info['manufacturer']['contacts'] if
-                                                                    i['value'].count('@') == 1]
+                                                                    i['value'].count('@') == 1][0]
                 self.row['Номер телефона(иготовитель)'] = [i['value'] for i in item_info['manufacturer']['contacts'] if
-                                                           i['value'].count('@') == 0]
+                                                           i['value'].count('@') == 0][0]
             except:
                 pass
             try:
@@ -257,9 +257,10 @@ class FilterParser:
                 pass
             for k, val in self.row.items():
                 if isinstance(val, str):
-                    string = val.replace('\n', '').replace('\r\n', '').replace(';', '')
+                    string = val.replace('\n', '').replace('\r\n', '').replace(';', '').replace('\xa0', '')
                     self.row[k] = ('%r' % string)[1:-1]
             self.data.append(self.row.copy())
+            self.row.clear()
 
         return self.data
 #

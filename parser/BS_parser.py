@@ -7,41 +7,6 @@ class BSparser:
 
     def __init__(self, id_p: str | int):
         self.id_p = id_p
-        self.row = {'id': id_p,
-                    'Тип декларации': '',  # common
-                    'Технические регламенты': '',
-                    'Группа продукции ЕАЭС': '',
-                    'Схема декларирования': '',
-                    'Тип объекта декларирования': '',
-                    'Статус декларации': '',  # declaration
-                    'Регистрационный номер декларации о соответствии': '',
-                    'Дата регистрации декларации': '',
-                    'Дата окончания действия декларации о соответствии': '',
-                    'Заявитель': '',  # applicant
-                    'ИНН(заявитель)': '',
-                    'ОГРНИП(заявитель)': '',
-                    'Адрес места осуществления деятельности': '',
-                    'Адрес места нахождения(заявитель)': '',
-                    'Номер телефона(заявитель)': '',
-                    'Адрес электронной почты(заявитель)': '',
-                    'Полное наименование': '',  # manufacturer
-                    'ИНН(иготовитель)': '',
-                    'Адрес места нахождения(иготовитель)': '',
-                    'Адрес производства продукции': '',
-                    'Номер телефона(иготовитель)': '',
-                    'Адрес электронной почты(иготовитель)': '',
-                    'Продукция, ввезена для проведения исследований и испытаний в качестве проб (образцов) для целей подтверждения соответствия?': '',
-                    # custom info
-                    'Регистрационный номер таможенной декларации': '',
-                    'Общее наименование продукции': '',  # product
-                    'Общие условия хранения продукции': '',
-                    'Происхождение продукции': '',
-                    'Размер партии': '',
-                    'Код ТН ВЭД ЕАЭС': '',
-                    'Наименование (обозначение) продукции': '',
-                    'Наименование документа': '',
-                    'Испытания продукции': ''
-                    }
 
     def get_headers(self):
         return {
@@ -65,6 +30,7 @@ class BSparser:
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"Windows"',
         }
+
     def get_token(self):
         url = 'https://pub.fsa.gov.ru/login'
         my_headers = {
@@ -77,10 +43,47 @@ class BSparser:
         }
         response = requests.post(url, headers=my_headers, json=data, verify=False)
         return response.headers['Authorization']
+
+    def get_val(self, scheme_id, tnved_id):
+        json_data = {
+            'items': {
+                'validationScheme2': [
+                    {
+                        'id': [
+                            scheme_id,
+                        ],
+                        'fields': [
+                            'name'
+                        ]
+                    },
+                ],
+                'tnved': [
+                    {
+                        'id': [
+                            tnved_id,
+                        ],
+                        'fields': [
+                            'name',
+                            'code',
+                        ],
+                    }
+                ]
+            }
+        }
+        try:
+            session = requests.Session()
+            response = session.post('https://pub.fsa.gov.ru/nsi/api/multi', headers=self.get_headers(),
+                                    json=json_data,
+                                    verify=False).json()
+        except:
+            time.sleep(10)
+            return self.get_val(scheme_id, tnved_id)
+        else:
+            return response['validationScheme2'][0]['name'], response['tnved'][0]['code'] + ' '  + response['tnved'][0]['name'].replace('\xa0', '')
+
     def get_dt(self):
         page = 'common'
         try:
-            time.sleep(0.1)
             session = requests.Session()
             response = session.get(url=f'https://pub.fsa.gov.ru/api/v1/rds/{page}/declarations/{self.id_p}',
                                    verify=False,
@@ -91,9 +94,9 @@ class BSparser:
             time.sleep(20)
             return self.get_dt()
         else:
-            return response
-
-
+            scheme = response['idDeclScheme']
+            tnved = response['product']['identifications'][0]['idTnveds'][0]
+            return response, self.get_val(scheme, tnved)
 
 
 if __name__ == '__main__':
@@ -101,4 +104,3 @@ if __name__ == '__main__':
     print(fil.get_dt())
     with open(f'datacommon.json', 'w', encoding='utf-8') as out:
         json.dump(fil.get_dt(), out, ensure_ascii=False, indent=4)
-

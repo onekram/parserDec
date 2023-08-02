@@ -38,7 +38,7 @@ headers = {
     'Sec-Fetch-Site': 'same-origin',
 }
 
-def get_ProductListRU_PARENT(parent_id=None):
+def get_list(url):
 
     childs = dict()
     import time
@@ -56,7 +56,6 @@ def get_ProductListRU_PARENT(parent_id=None):
             },
         ],
         }
-        url = 'https://pub.fsa.gov.ru/nsi/api/tree/techregProductListRU/get'
         session = requests.Session()
         try:
             response = session.post(url, headers=headers, json=json_data, verify=False).json()
@@ -77,7 +76,8 @@ def get_ProductListRU_PARENT(parent_id=None):
 
 
 if __name__ == '__main__':
-    print( get_ProductListRU_PARENT())
+    url = 'https://pub.fsa.gov.ru/nsi/api/tree/singleListRU/get'
+    print(get_list(url))
 
     # json_data = {
     #     'parentId': 2,
