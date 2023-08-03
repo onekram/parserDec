@@ -241,8 +241,9 @@ def enter_amount(message: Message):
                 msg = bot.send_message(chat_id=message.chat.id, text='Парсинг начался...')
 
                 obj = users[message.from_user.id]
-                filter = {'date1': obj['date1'],
-                             'date2': obj['date1'],
+                filter = {
+                             'date1': obj['date1'],
+                             'date2': obj['date2'],
                              'status': [var['status'][i] for i in obj['status']],
                              'type_dec': [var['decl_type'][i] for i in obj['type_dec']],
                              'type_obj_dec': [var['decl_obj_type'][i] for i in obj['type_obj_dec']],

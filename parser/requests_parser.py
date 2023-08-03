@@ -148,6 +148,7 @@ class FilterParser:
             json=self.json_data,
             verify=False
         )
+        print(self.json_data, response.json())
         for i, item in enumerate(response.json()['items'], 1):
             self.bot.edit_message_text(chat_id=chid, text=f'Процесс парсинга: {i} операций выполнено!', message_id=mid)
             self.row['ID'] = f"https://pub.fsa.gov.ru/rds/declaration/view/{item.get('id', '')}"
@@ -263,12 +264,5 @@ class FilterParser:
             self.row.clear()
 
         return self.data
-#
-#
-# if __name__ == '__main__':
-#     # fil = FilterParser(amount=10)
-#     # data = fil.download_data
-#     # with open('data.csv', 'w', encoding='utf-8-sig', newline='') as file_out:
-#     #     writer = csv.DictWriter(file_out, fieldnames=fil.fields, delimiter=';')
-#     #     writer.writeheader()
-#     #     writer.writerows(data)
+
+
