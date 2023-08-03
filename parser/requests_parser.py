@@ -148,7 +148,6 @@ class FilterParser:
             json=self.json_data,
             verify=False
         )
-        print(self.json_data, response.json())
         for i, item in enumerate(response.json()['items'], 1):
             self.bot.edit_message_text(chat_id=chid, text=f'Процесс парсинга: {i} операций выполнено!', message_id=mid)
             self.row['ID'] = f"https://pub.fsa.gov.ru/rds/declaration/view/{item.get('id', '')}"
