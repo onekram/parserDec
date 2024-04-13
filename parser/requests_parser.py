@@ -1,12 +1,8 @@
-import json
-import csv
 import requests
-from copy import copy
 from telebot import TeleBot
 
 from lexicon.alphabet import var, status
 
-import time
 import urllib3
 from parser.BS_parser import BSparser
 
@@ -14,7 +10,6 @@ urllib3.disable_warnings()
 
 
 class FilterParser:
-
     def __init__(self, bot: TeleBot, fiter: dict = None, amount: int = 10):
         self.bot = bot
         self.data = []
