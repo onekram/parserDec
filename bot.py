@@ -1,4 +1,5 @@
 import csv
+import json
 from telebot.types import Message
 from config_data.config import load_config, Config
 from telebot import TeleBot
@@ -8,7 +9,6 @@ from keyboards.functions_kb import *
 from parser.requests_parser import FilterParser
 
 from collections import defaultdict
-from lexicon.alphabet import var
 
 config: Config = load_config()
 bot: TeleBot = TeleBot(config.tgbot.token, parse_mode='html')
@@ -25,7 +25,8 @@ users = defaultdict(lambda: {'date1': [None, None],
                              'tech': [],
                              'type': []})
 
-
+with open('lexicon/buttons.json', 'r') as file:
+    var = json.load(file)
 # ----------------------------------
 
 def enter_date1(message: Message):

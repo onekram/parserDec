@@ -1,12 +1,14 @@
 import requests
+import json
 from telebot import TeleBot
-
-from lexicon.alphabet import var, status
 
 import urllib3
 from parser.BS_parser import BSparser
 
 urllib3.disable_warnings()
+
+with open('../lexicon/buttons.json', 'r') as file:
+    status = json.load(file)
 
 
 class FilterParser:
